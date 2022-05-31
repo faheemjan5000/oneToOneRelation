@@ -1,6 +1,7 @@
 package faheem.microservices.one.to.one.relation.service;
 
 import faheem.microservices.one.to.one.relation.entity.Insurance;
+import faheem.microservices.one.to.one.relation.exception.InsuranceNotFoundException;
 import faheem.microservices.one.to.one.relation.repository.InsuranceRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class InsuranceService {
         return insuranceRepository.save(insurance);
     }
 
-    public Insurance getInsuranceById(int insuranceId){
+    public Insurance getInsuranceById(int insuranceId) throws InsuranceNotFoundException {
         log.info("InsuranceService.getInsuranceById() method is called...");
         if(insuranceRepository.findById(insuranceId).isPresent()){
             log.info("insurance found for id : {}",insuranceId);
@@ -26,7 +27,7 @@ public class InsuranceService {
         }
         else{
             log.info("Insurance not found for id : {}",insuranceId);
-            return null;
+            throw new InsuranceNotFoundException("insurance not exists");
         }
     }
 }
