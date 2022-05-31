@@ -23,10 +23,11 @@ public class InsuranceService {
         log.info("InsuranceService.getInsuranceById() method is called...");
         if(insuranceRepository.findById(insuranceId).isPresent()){
             log.info("insurance found for id : {}",insuranceId);
+            log.info("insurance : {}",insuranceRepository.findById(insuranceId).get());
             return insuranceRepository.findById(insuranceId).get();
         }
         else{
-            log.info("Insurance not found for id : {}",insuranceId);
+            log.error("Insurance not found for id : {}",insuranceId);
             throw new InsuranceNotFoundException("insurance not exists");
         }
     }
